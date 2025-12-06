@@ -1,5 +1,5 @@
 services:
-  hapi-template-ts:
+  quiz-api:
     command: npm run test:watch
     volumes:
       - ./.git:/home/node/.git

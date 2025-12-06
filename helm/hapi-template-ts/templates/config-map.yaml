@@ -1,5 +1,5 @@
-{{- include "helm-library.configmap" (list . "hapi-template-ts.configmap") -}}
-{{- define "hapi-template-ts.configmap" -}}
+{{- include "helm-library.configmap" (list . "quiz-api.configmap") -}}
+{{- define "quiz-api.configmap" -}}
 data:
   PORT: {{ .Values.container.port | quote }}
   NODE_ENV: {{ .Values.configMap.environment | quote }}

@@ -27,13 +27,7 @@ const config = convict({
     default: 3000,
     env: 'PORT',
     arg: 'port',
-  },
-  appName: {
-    doc: 'The name of the application.',
-    format: String,
-    default: 'Hapi Template',
-    env: 'APP_NAME',
-  },
+  }
 })
 
 config.validate({ allowed: 'strict' })
