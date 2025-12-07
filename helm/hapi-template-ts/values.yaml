@@ -7,9 +7,10 @@ container:
 
 configMap:
   environment: production
+  redisHost: services.lynxmagnus.com
 
 secret:
-  apiKey: secret-value
+  secretsPath: /aircraft-cache
 
 deployment: {}
 

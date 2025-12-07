@@ -27,6 +27,46 @@ const config = convict({
     default: 3000,
     env: 'PORT',
     arg: 'port',
+  },
+  cache: {
+    socket: {
+      host: {
+        doc: 'The cache host.',
+        format: String,
+        default: '',
+        env: 'REDIS_HOST'
+      },
+      port: {
+        doc: 'The cache port.',
+        format: 'port',
+        default: 6379,
+        env: 'REDIS_PORT'
+      },
+      tls: {
+        doc: 'Whether to use TLS for the cache connection.',
+        format: Boolean,
+        default: false,
+        env: 'REDIS_TLS'
+      }
+    },
+    password: {
+      doc: 'The cache password.',
+      format: String,
+      default: '',
+      env: 'REDIS_PASSWORD'
+    },
+    partition: {
+      doc: 'The cache partition prefix.',
+      format: String,
+      default: 'quiz-api:',
+      env: 'REDIS_PARTITION'
+    },
+    ttl: {
+      doc: 'The default cache TTL (in seconds).',
+      format: Number,
+      default: 172800, // 2 days
+      env: 'REDIS_TTL'
+    }
   }
 })
 

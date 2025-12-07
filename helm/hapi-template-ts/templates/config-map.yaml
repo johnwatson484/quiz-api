@@ -3,4 +3,5 @@
 data:
   PORT: {{ .Values.container.port | quote }}
   NODE_ENV: {{ .Values.configMap.environment | quote }}
+  REDIS_HOST: {{ .Values.configMap.redisHost | quote }}
 {{- end -}}
