@@ -27,4 +27,4 @@ CMD [ "npm", "run", "start:watch" ]
 FROM development AS production
 ENV NODE_ENV=production
 RUN npm ci
-CMD [ "node", "src/dist" ]
+CMD [ "node", "dist" ]

@@ -1,5 +1,5 @@
 import { Server, ServerInjectOptions, ServerInjectResponse } from '@hapi/hapi'
-import { createServer } from '../src/dist/server.js'
+import { createServer } from '../dist/server.js'
 
 describe('health test', () => {
   let server: Server
