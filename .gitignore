@@ -108,3 +108,5 @@ production-values.yaml
 *.lock
 
 **/dist/
+
+test-output/
