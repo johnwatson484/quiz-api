@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 import { Server, ServerInjectOptions, ServerInjectResponse } from '@hapi/hapi'
 import { createServer } from '../dist/server.js'
 
