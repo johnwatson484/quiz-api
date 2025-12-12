@@ -1,54 +1,54 @@
 import Hoek from '@hapi/hoek'
 import config from './config.js'
-import { createClient } from 'redis'
+import { createClient, RedisClientOptions } from 'redis'
 
 const cacheConfig = config.get('cache')
 
-let client: any = null
+let client: ReturnType<typeof createClient>
 
-const cacheOptions: any = {
+const cacheOptions: RedisClientOptions = {
   socket: cacheConfig.socket,
   password: cacheConfig.password,
 }
 
-const start = async () => {
-  client = createClient(cacheOptions)
-  client.on('error', (err: any) => console.log(`Redis error: ${err}`))
-  client.on('reconnecting', () => console.log('Redis reconnecting...'))
-  client.on('ready', () => console.log('Redis connected'))
-  await client.connect()
+async function start (): Promise<void> {
+  client = await createClient(cacheOptions)
+    .on('error', (err: Error) => console.log(`Redis error: ${err}`))
+    .on('reconnecting', () => console.log('Redis reconnecting...'))
+    .on('ready', () => console.log('Redis connected'))
+    .connect()
 }
 
-const stop = async () => {
+async function stop (): Promise<void> {
   if (client.isOpen) {
     await client.quit()
   }
 }
 
-const get = async (cache: string, key: string) => {
+async function get (cache: string, key: string): Promise<Object> {
   const fullKey = getFullKey(cache, key)
   const value = await client.get(fullKey)
   return value ? JSON.parse(value) : {}
 }
 
-const set = async (cache: string, key: string, value: any) => {
+async function set (cache: string, key: string, value: any): Promise<void> {
   const fullKey = getFullKey(cache, key)
   const serializedValue = JSON.stringify(value)
   await client.set(fullKey, serializedValue, { EX: cacheConfig.ttl })
 }
 
-const update = async (cache: string, key: string, cacheData: any) => {
+async function update (cache: string, key: string, cacheData: any): Promise<void> {
   const existing = await get(cache, key)
   Hoek.merge(existing, cacheData, { mergeArrays: true })
   await set(cache, key, existing)
 }
 
-const getFullKey = (cache: string, key: string) => {
+function getFullKey (cache: string, key: string): string {
   const prefix = getKeyPrefix(cache)
   return `${prefix}:${key}`
 }
 
-const getKeyPrefix = (cache: string) => {
+function getKeyPrefix (cache: string): string {
   return `${cacheConfig.partition}:${cache}`
 }
 

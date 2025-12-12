@@ -41,12 +41,6 @@ const config = convict({
         format: 'port',
         default: 6379,
         env: 'REDIS_PORT'
-      },
-      tls: {
-        doc: 'Whether to use TLS for the cache connection.',
-        format: Boolean,
-        default: false,
-        env: 'REDIS_TLS'
       }
     },
     password: {
